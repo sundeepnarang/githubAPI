@@ -22,7 +22,7 @@ output.forEach(({id, full_name,collaborators=[], teams=[]})=>{
     const line = `${id},"${full_name}",${getCollabStatus(collaborators,people[0])},`+
         `${getCollabStatus(collaborators, people[1])},${getCollabStatus(collaborators,people[2])},`+
         `${getCollabStatus(collaborators,people[3])},${getCollabStatus(collaborators,people[4])},`+
-        `${getTeamStatus(teams, teamList[0])},${getTeamStatus(teams, teamList[1])}`+
+        `${getTeamStatus(teams, teamList[0])},${getTeamStatus(teams, teamList[1])},`+
         `${getTeamStatus(teams, teamList[2])},${getTeamStatus(teams, teamList[3])}\n`
     CSV = CSV+line;
 })
