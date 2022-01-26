@@ -1,0 +1,22 @@
+{
+  "name": "githubapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundeepnarang/githubAPI.git"
+  },
+  "author": "Sundeep Narang <sundeepnrng@gmail.com> (https//sundeepnarang.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sundeepnarang/githubAPI/issues"
+  },
+  "homepage": "https://github.com/sundeepnarang/githubAPI#readme",
+  "dependencies": {
+    "@octokit/core": "^3.5.1"
+  }
+}
