@@ -1,9 +1,26 @@
 const output = require("./output")
 const fs = require("fs");
-const {people, teamList} = require("./config");
+let people = [];
+let teamList = [];
 
-const HEADER = `id,name,${people[0]},${people[1]},${people[2]},${people[3]},${people[4]},${teamList[0]},${teamList[1]},${teamList[2]},${teamList[3]}\n`
-let CSV = HEADER;
+output.forEach(({collaborators=[], teams=[]})=>{
+    collaborators.forEach(({name})=>{
+        if(people.indexOf(name)===-1){
+            people.push(name)
+        }
+    })
+    teams.forEach(d=>{
+        if(teamList.indexOf(d)===-1){
+            teamList.push(d)
+        }
+    })
+})
+
+let HEADER = `id,name`;
+people.forEach(d=>HEADER=`${HEADER},${d}`);
+teamList.forEach(d=>HEADER=`${HEADER},${d}`);
+
+let CSV = `${HEADER}\n`;
 
 function getCollabStatus(collaborators=[], user=""){
     for(let i =0;i<collaborators.length;i++){
@@ -15,15 +32,13 @@ function getCollabStatus(collaborators=[], user=""){
 }
 
 function getTeamStatus(teams=[],team){
-    return teams.indexOf(team)>0?"YES":"NO"
+    return teams.indexOf(team)>-1?"YES":"NO"
 }
 
 output.forEach(({id, full_name,collaborators=[], teams=[]})=>{
-    const line = `${id},"${full_name}",${getCollabStatus(collaborators,people[0])},`+
-        `${getCollabStatus(collaborators, people[1])},${getCollabStatus(collaborators,people[2])},`+
-        `${getCollabStatus(collaborators,people[3])},${getCollabStatus(collaborators,people[4])},`+
-        `${getTeamStatus(teams, teamList[0])},${getTeamStatus(teams, teamList[1])},`+
-        `${getTeamStatus(teams, teamList[2])},${getTeamStatus(teams, teamList[3])}\n`
-    CSV = CSV+line;
+    let line = `${id},"${full_name}"`
+    people.forEach(d=>line=`${line},${getCollabStatus(collaborators,d)}`);
+    teamList.forEach(d=>line=`${line},${getTeamStatus(teams,d)}`);
+    CSV = `${CSV}${line}\n`;
 })
 fs.writeFileSync("output.csv",CSV);
