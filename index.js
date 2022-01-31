@@ -1,6 +1,7 @@
 const {Octokit} = require("@octokit/core");
 const {personalAccessToken} = require("./config");
 const fs = require("fs");
+const {parser} = require("./parse");
 
 const octokit = new Octokit({ auth: personalAccessToken });
 
@@ -38,4 +39,4 @@ async  function main(){
 }
 
 
-main().then(r => console.log("done"));
+main().then(r => parser());
